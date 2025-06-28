@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: open_loyalty_backend_prod
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - elk
+      - mail
+    ports:
+      - "8181:80"
+    environment:
+      - APP_ENV=prod
+      - DATABASE_URL=postgresql://openloyalty:openloyalty@db:5432/openloyalty
+      - SYMFONY_DEBUG=0
+    volumes:
+      - backend_uploads:/var/www/ol/backend/app/uploads
+      - backend_translations:/var/www/ol/backend/app/Resources/frontend_translations
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+    command: >
+      sh -c "composer install --no-dev --optimize-autoloader &&
+             bin/console cache:clear --env=prod &&
+             bin/console assets:install --env=prod &&
+             chown -R www-data:www-data /var/www/ol/backend/var &&
+             chown -R www-data:www-data /var/www/ol/backend/app/uploads &&
+             apache2-foreground"
+
+  frontend:
+    container_name: open_loyalty_frontend_prod
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8182:80"
+    depends_on:
+      - backend
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+  db:
+    container_name: open_loyalty_postgresql_prod
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=openloyalty
+      - POSTGRES_USER=openloyalty
+      - POSTGRES_PASSWORD=openloyalty
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+  elk:
+    container_name: open_loyalty_elasticsearch_prod
+    image: elasticsearch:7.17.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+  mail:
+    container_name: open_loyalty_mailhog_prod
+    image: mailhog/mailhog:latest
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+  redis:
+    container_name: open_loyalty_redis_prod
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+networks:
+  openloyalty_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
+  redis_data:
+  backend_uploads:
+  backend_translations: 

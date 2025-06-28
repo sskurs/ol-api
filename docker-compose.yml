@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: open_loyalty_backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - elk
+      - mail
+    ports:
+      - "8181:80"
+    environment:
+      - APP_ENV=dev
+      - DATABASE_URL=postgresql://openloyalty:openloyalty@db:5432/openloyalty
+    volumes:
+      - ./backend:/var/www/ol/backend
+      - backend_vendor:/var/www/ol/backend/vendor
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+  frontend:
+    container_name: open_loyalty_frontend
+    build: ./frontend
+    ports:
+      - "8182:3000"
+      - "8183:3001"
+      - "8184:3002"
+    depends_on:
+      - backend
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+  db:
+    container_name: open_loyalty_postgresql
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=openloyalty
+      - POSTGRES_USER=openloyalty
+      - POSTGRES_PASSWORD=openloyalty
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: open_loyalty_pgadmin
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@openloyalty.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "8889:80"
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  elk:
+    container_name: open_loyalty_elasticsearch
+    image: elasticsearch:7.17.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+
+  mail:
+    container_name: open_loyalty_mailhog
+    image: mailhog/mailhog:latest
+    ports:
+      - "8186:8025"
+      - "8187:1025"
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+  redis:
+    container_name: open_loyalty_redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - openloyalty_network
+    restart: unless-stopped
+
+networks:
+  openloyalty_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+  elasticsearch_data:
+  redis_data:
+  backend_vendor:
