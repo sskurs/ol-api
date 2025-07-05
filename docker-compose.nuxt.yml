@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Database
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: openloyalty
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: openloyalty
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Backend API
+  backend:
+    build: ./backend
+    ports:
+      - "8181:8181"
+    environment:
+      - DATABASE_URL=postgresql://postgres:openloyalty@db:5432/openloyalty
+      - APP_ENV=dev
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/var/www
+      - /var/www/backend/var/cache
+      - /var/www/backend/var/logs
+
+  # New Nuxt Frontend
+  nuxt-frontend:
+    build: ./nuxt-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - API_BASE_URL=http://localhost:8181
+    depends_on:
+      - backend
+    volumes:
+      - ./nuxt-frontend:/app
+      - /app/node_modules
+    command: npm run dev
+
+volumes:
+  postgres_data: 
