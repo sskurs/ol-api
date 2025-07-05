@@ -18,7 +18,7 @@ class AccountId implements Identifier
     /**
      * @param string $accountId
      */
-    public function __construct($accountId)
+    public function __construct(string $accountId)
     {
         Assert::string($accountId);
         Assert::uuid($accountId);

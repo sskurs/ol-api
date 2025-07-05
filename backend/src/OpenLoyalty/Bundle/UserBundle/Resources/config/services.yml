@@ -10,22 +10,68 @@ parameters:
 services:
   # Mock services to replace Broadway-based repositories
   oloy.user.read_model.repository.customer_details:
-    class: stdClass
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockCustomerDetailsRepository
     public: true
   oloy.user.read_model.repository.invitation_details:
-    class: stdClass
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockInvitationDetailsRepository
     public: true
   oloy.user.read_model.repository.seller_details:
-    class: OpenLoyalty\Infrastructure\Seller\DummySellerDetailsRepository
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockSellerDetailsRepository
     public: true
+  oloy.points.account.repository.account_details:
+    class: OpenLoyalty\Domain\Repository\Account\AccountDetailsRepositoryImpl
+    public: true
+  oloy.points.account.repository.points_transfer_details:
+    class: OpenLoyalty\Domain\Account\ReadModel\PointsTransferDetailsRepositoryImpl
+    public: true
+  oloy.user.read_model.repository.customers_belonging_to_one_level:
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockCustomerDetailsRepository
+    public: true
+  oloy.transaction.read_model.repository.transaction_details:
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockCustomerDetailsRepository
+    public: true
+  oloy.segment.read_model.repository.segmented_customers:
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockCustomerDetailsRepository
+    public: true
+  oloy.campaign.read_model.repository.coupon_usage:
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockCouponUsageRepository
+    public: true
+
+  # Alias for autowiring
+  OpenLoyalty\Domain\Campaign\ReadModel\CouponUsageRepository: '@oloy.campaign.read_model.repository.coupon_usage'
+  oloy.campaign.read_model.repository.campaign_usage:
+    class: OpenLoyalty\Bundle\UserBundle\Service\MockCampaignUsageRepository
+    public: true
+
+  # Alias for autowiring
+  OpenLoyalty\Domain\Campaign\ReadModel\CampaignUsageRepository: '@oloy.campaign.read_model.repository.campaign_usage'
+  
+  # Alias for Broadway RepositoryInterface
+  Broadway\ReadModel\RepositoryInterface: '@oloy.user.read_model.repository.customer_details'
+  
+  # Alias for PointsTransferDetailsRepository
+  OpenLoyalty\Domain\Account\ReadModel\PointsTransferDetailsRepository: '@oloy.points.account.repository.points_transfer_details'
+  
+  # Alias for SellerDetailsRepository
+  OpenLoyalty\Domain\Seller\ReadModel\SellerDetailsRepository: '@oloy.user.read_model.repository.seller_details'
+  
+  # Alias for AccountDetailsRepository
+  OpenLoyalty\Domain\Account\ReadModel\AccountDetailsRepository: '@oloy.points.account.repository.account_details'
+  
+  # Alias for CustomerDetailsRepository
+  OpenLoyalty\Domain\Customer\ReadModel\CustomerDetailsRepository: '@oloy.user.read_model.repository.customer_details'
+  
+  # Alias for TransactionDetailsRepository
+  OpenLoyalty\Domain\Transaction\ReadModel\TransactionDetailsRepository: '@oloy.transaction.read_model.repository.transaction_details'
+  
+  # Alias for InvitationDetailsRepository
+  OpenLoyalty\Domain\Customer\ReadModel\InvitationDetailsRepository: '@oloy.user.read_model.repository.invitation_details'
+  
   broadway.uuid.generator:
     class: stdClass
     public: true
   oloy.user.read_model.repository_factory:
     class: OpenLoyalty\Bundle\UserBundle\Service\RepositoryFactory
-    public: true
-  oloy.user.read_model.repository.customers_belonging_to_one_level:
-    class: stdClass
     public: true
 
   oloy.user.all_users_provider:
@@ -234,3 +280,7 @@ services:
 
   oloy.user.authentication_failure_handler:
     class: OpenLoyalty\Bundle\UserBundle\Security\Handler\AuthenticationFailureHandler
+
+  OpenLoyalty\Bundle\UserBundle\Command\CreateProjectionIndexCommand:
+    tags:
+      - { name: console.command }

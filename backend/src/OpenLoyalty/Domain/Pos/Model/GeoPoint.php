@@ -5,12 +5,10 @@
  */
 namespace OpenLoyalty\Domain\Pos\Model;
 
-use Broadway\Serializer\SerializableInterface;
-
 /**
  * Class GeoPoint.
  */
-class GeoPoint implements SerializableInterface
+class GeoPoint
 {
     /**
      * @var string

@@ -12,7 +12,7 @@ use OpenLoyalty\Domain\Repository\OloyElasticsearchRepository;
 /**
  * Class InvitationDetailsElasticsearchRepository.
  */
-class InvitationDetailsElasticsearchRepository extends OloyElasticsearchRepository implements InvitationDetailsRepository
+class InvitationDetailsElasticsearchRepository extends OloyElasticsearchRepository
 {
     protected $dynamicFields = [
         [
@@ -34,7 +34,7 @@ class InvitationDetailsElasticsearchRepository extends OloyElasticsearchReposito
         ], true);
     }
 
-    public function findOneByRecipientId(CustomerId $recipientId)
+    public function findOneByRecipientId(\OpenLoyalty\Domain\Customer\CustomerId $recipientId)
     {
         $invitations = $this->findByParameters([
             'recipientId' => $recipientId->__toString(),

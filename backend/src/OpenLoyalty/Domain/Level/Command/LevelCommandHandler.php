@@ -16,7 +16,7 @@ use OpenLoyalty\Domain\Level\SpecialRewardRepository;
 /**
  * Class LevelCommandHandler.
  */
-class LevelCommandHandler extends CommandHandler
+class LevelCommandHandler implements CommandHandler
 {
     /**
      * @var LevelRepository
@@ -142,5 +142,25 @@ class LevelCommandHandler extends CommandHandler
         }
 
         $this->levelRepository->save($level);
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof ActivateLevel) {
+            return $this->handleActivateLevel($command);
+        }
+        if ($command instanceof DeactivateLevel) {
+            return $this->handleDeactivateLevel($command);
+        }
+        if ($command instanceof CreateLevel) {
+            return $this->handleCreateLevel($command);
+        }
+        if ($command instanceof UpdateLevel) {
+            return $this->handleUpdateLevel($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

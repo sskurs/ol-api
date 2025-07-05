@@ -5,13 +5,12 @@
  */
 namespace OpenLoyalty\Domain\Transaction\Event;
 
-use Broadway\Serializer\SerializableInterface;
 use OpenLoyalty\Domain\Transaction\TransactionId;
 
 /**
  * Class TransactionEvent.
  */
-abstract class TransactionEvent implements SerializableInterface
+abstract class TransactionEvent
 {
     /**
      * @var TransactionId

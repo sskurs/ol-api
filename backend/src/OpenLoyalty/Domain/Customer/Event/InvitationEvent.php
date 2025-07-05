@@ -5,13 +5,13 @@
  */
 namespace OpenLoyalty\Domain\Customer\Event;
 
-use Broadway\Serializer\SerializableInterface;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Customer\InvitationId;
 
 /**
  * Class InvitationEvent.
  */
-abstract class InvitationEvent implements SerializableInterface
+abstract class InvitationEvent implements Serializable
 {
     /**
      * @var InvitationId

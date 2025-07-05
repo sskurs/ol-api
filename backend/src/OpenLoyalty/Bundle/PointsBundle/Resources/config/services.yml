@@ -1,4 +1,6 @@
 services:
+  oloy.points.account.repository.account_details:
+    public: true
   oloy.account.form_type.add_points:
       class: OpenLoyalty\Bundle\PointsBundle\Form\Type\AddPointsFormType
       arguments:

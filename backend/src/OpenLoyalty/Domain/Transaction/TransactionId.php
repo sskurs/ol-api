@@ -18,7 +18,7 @@ class TransactionId implements Identifier
     /**
      * @param string $transactionId
      */
-    public function __construct($transactionId)
+    public function __construct(string $transactionId)
     {
         Assert::string($transactionId);
         Assert::uuid($transactionId);

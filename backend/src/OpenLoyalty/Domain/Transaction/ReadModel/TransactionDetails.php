@@ -5,8 +5,7 @@
  */
 namespace OpenLoyalty\Domain\Transaction\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
 use OpenLoyalty\Domain\Model\SKU;
 use OpenLoyalty\Domain\Transaction\CustomerId;
 use OpenLoyalty\Domain\Transaction\Model\CustomerBasicData;
@@ -19,7 +18,7 @@ use OpenLoyalty\Domain\Transaction\TransactionId;
 /**
  * Class TransactionDetails.
  */
-class TransactionDetails implements ReadModelInterface, SerializableInterface
+class TransactionDetails implements SerializableReadModel
 {
     /**
      * @var TransactionId

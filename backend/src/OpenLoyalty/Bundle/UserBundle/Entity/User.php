@@ -246,7 +246,10 @@ abstract class User implements UserInterface, \Serializable
             $roles = $this->roles;
         }
 
-        return $roles;
+        // Convert Role objects to strings if needed
+        return array_map(function($role) {
+            return $role instanceof Role ? $role->getRole() : (string)$role;
+        }, $roles);
     }
 
     /**
@@ -327,7 +330,7 @@ abstract class User implements UserInterface, \Serializable
     {
         /** @var Role $roleItem */
         foreach ($this->getRoles() as $roleItem) {
-            if ($role == $roleItem->getRole()) {
+            if ($role == $roleItem) {
                 return $roleItem;
             }
         }

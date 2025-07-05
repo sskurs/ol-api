@@ -5,13 +5,13 @@
  */
 namespace OpenLoyalty\Domain\Account\Event;
 
-use Broadway\Serializer\SerializableInterface;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Account\AccountId;
 
 /**
  * Class AccountEvent.
  */
-abstract class AccountEvent implements SerializableInterface
+abstract class AccountEvent implements Serializable
 {
     /**
      * @var AccountId

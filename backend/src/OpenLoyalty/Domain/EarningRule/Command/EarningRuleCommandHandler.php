@@ -17,7 +17,7 @@ use OpenLoyalty\Domain\EarningRule\Exception\CustomEventEarningRuleAlreadyExists
 /**
  * Class EarningRuleCommandHandler.
  */
-class EarningRuleCommandHandler extends CommandHandler
+class EarningRuleCommandHandler implements CommandHandler
 {
     /**
      * @var EarningRuleRepository
@@ -100,5 +100,28 @@ class EarningRuleCommandHandler extends CommandHandler
         );
         $rule->addUsage($usage);
         $this->earningRuleRepository->save($rule);
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateEarningRule) {
+            return $this->handleCreateEarningRule($command);
+        }
+        if ($command instanceof UpdateEarningRule) {
+            return $this->handleUpdateEarningRule($command);
+        }
+        if ($command instanceof ActivateEarningRule) {
+            return $this->handleActivateEarningRule($command);
+        }
+        if ($command instanceof DeactivateEarningRule) {
+            return $this->handleDeactivateEarningRule($command);
+        }
+        if ($command instanceof UseCustomEventEarningRule) {
+            return $this->handleUseCustomEventEarningRule($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

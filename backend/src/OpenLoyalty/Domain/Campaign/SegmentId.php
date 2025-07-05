@@ -23,7 +23,7 @@ class SegmentId implements Identifier
      *
      * @param string $segmentId
      */
-    public function __construct($segmentId)
+    public function __construct(string $segmentId)
     {
         Assert::string($segmentId);
         Assert::uuid($segmentId);

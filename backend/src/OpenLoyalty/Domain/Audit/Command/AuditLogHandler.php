@@ -19,7 +19,7 @@ use OpenLoyalty\Domain\Audit\SystemEvent\CreatedAuditLogSystemEvent;
 /**
  * Class AuditLogHandler.
  */
-class AuditLogHandler extends CommandHandler
+class AuditLogHandler implements CommandHandler
 {
     /**
      * @var AuditLogRepository
@@ -81,5 +81,16 @@ class AuditLogHandler extends CommandHandler
             AuditSystemEvents::AUDIT_LOG_CREATED,
             [new CreatedAuditLogSystemEvent($auditLog->getAuditLogId())]
         );
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateAuditLog) {
+            return $this->handleCreateAuditLog($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

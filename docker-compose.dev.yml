@@ -1,6 +1,3 @@
-# use as docker-compose -f docker-composer.yml -f docker-compose.dev.yml up
-version: '3.8'
-
 services:
   backend:
     container_name: open_loyalty_backend_dev

@@ -5,8 +5,8 @@
  */
 namespace OpenLoyalty\Domain\Campaign\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Campaign\CampaignId;
 use OpenLoyalty\Domain\Campaign\CustomerId;
 use OpenLoyalty\Domain\Campaign\Model\Coupon;
@@ -14,7 +14,7 @@ use OpenLoyalty\Domain\Campaign\Model\Coupon;
 /**
  * Class CouponUsage.
  */
-class CouponUsage implements ReadModelInterface, SerializableInterface
+class CouponUsage implements SerializableReadModel, Serializable
 {
     /**
      * @var int

@@ -5,8 +5,8 @@
  */
 namespace OpenLoyalty\Domain\Account\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Account\AccountId;
 use OpenLoyalty\Domain\Account\Model\AddPointsTransfer;
 use OpenLoyalty\Domain\Account\Model\PointsTransfer;
@@ -16,7 +16,7 @@ use OpenLoyalty\Domain\Account\CustomerId;
 /**
  * Class AccountDetails.
  */
-class AccountDetails implements ReadModelInterface, SerializableInterface
+class AccountDetails implements SerializableReadModel, Serializable
 {
     /**
      * @var AccountId

@@ -72,8 +72,14 @@ doctrine:
           campaign_levels_json_array: OpenLoyalty\Infrastructure\Campaign\Persistance\Doctrine\Type\CampaignLevelsJsonArrayDoctrineType
           campaign_segments_json_array: OpenLoyalty\Infrastructure\Campaign\Persistance\Doctrine\Type\CampaignSegmentsJsonArrayDoctrineType
           campaign_coupons_json_array: OpenLoyalty\Infrastructure\Campaign\Persistance\Doctrine\Type\CampaignCouponsJsonArrayDoctrineType
+          photo_id: OpenLoyalty\Infrastructure\Campaign\Persistance\Doctrine\Type\PhotoIdDoctrineType
           audit_log_id: OpenLoyalty\Infrastructure\Audit\Persistance\Doctrine\Type\AuditLogIdDoctrineType
           email_id: OpenLoyalty\Infrastructure\Email\Persistance\Doctrine\Type\EmailIdDoctrineType
+          label_multipliers_json_array: OpenLoyalty\Infrastructure\EarningRule\Persistance\Doctrine\Type\LabelMultipliersJsonArrayDoctrineType
+          activation_code_id: OpenLoyalty\Infrastructure\Campaign\Persistance\Doctrine\Type\ActivationCodeIdDoctrineType
+          campaign_category_id: OpenLoyalty\Infrastructure\Campaign\Persistance\Doctrine\Type\CampaignCategoryIdDoctrineType
+          campaign_categories_json_array: OpenLoyalty\Infrastructure\Campaign\Persistance\Doctrine\Type\CampaignCategoriesJsonArrayDoctrineType
+          language_id: OpenLoyalty\Infrastructure\Email\Persistance\Doctrine\Type\LanguageIdDoctrineType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore

@@ -18,6 +18,16 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Admin extends User
 {
     /**
+     * Admin constructor.
+     *
+     * @param string $id
+     */
+    public function __construct(string $id)
+    {
+        parent::__construct($id);
+    }
+
+    /**
      * @var string
      * @ORM\Column(type="string", nullable=true, name="first_name")
      * @JMS\Expose()

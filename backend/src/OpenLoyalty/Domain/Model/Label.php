@@ -5,12 +5,10 @@
  */
 namespace OpenLoyalty\Domain\Model;
 
-use Broadway\Serializer\SerializableInterface;
-
 /**
  * Class Label.
  */
-class Label implements SerializableInterface
+class Label
 {
     /**
      * @var string

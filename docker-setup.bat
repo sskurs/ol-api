@@ -18,7 +18,7 @@ goto help
 
 :dev
 echo [INFO] Starting development environment...
-docker-compose -f docker-compose.migrated.yml -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.migrated.yml -f docker-compose.dev.yml up --build -d
 echo [INFO] Development environment started!
 echo [INFO] Access points:
 echo   - Backend API: http://localhost:8181

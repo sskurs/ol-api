@@ -18,7 +18,7 @@ class PosId implements Identifier
     /**
      * @param string $posId
      */
-    public function __construct($posId)
+    public function __construct(string $posId)
     {
         Assert::string($posId);
         Assert::uuid($posId);

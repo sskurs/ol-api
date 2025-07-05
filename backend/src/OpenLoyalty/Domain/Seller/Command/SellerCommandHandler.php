@@ -14,7 +14,7 @@ use OpenLoyalty\Domain\Seller\Validator\SellerUniqueValidator;
 /**
  * Class SellerCommandHandler.
  */
-class SellerCommandHandler extends CommandHandler
+class SellerCommandHandler implements CommandHandler
 {
     /**
      * @var SellerRepository
@@ -87,5 +87,25 @@ class SellerCommandHandler extends CommandHandler
         $seller = $this->repository->load($command->getSellerId());
         $seller->update($sellerData);
         $this->repository->save($seller);
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateSeller) {
+            return $this->handleCreateSeller($command);
+        }
+        if ($command instanceof UpdateSeller) {
+            return $this->handleUpdateSeller($command);
+        }
+        if ($command instanceof ActivateSeller) {
+            return $this->handleActivateSeller($command);
+        }
+        if ($command instanceof DeactivateSeller) {
+            return $this->handleDeactivateSeller($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

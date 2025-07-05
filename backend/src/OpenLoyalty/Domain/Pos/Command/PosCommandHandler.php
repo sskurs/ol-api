@@ -15,7 +15,7 @@ use OpenLoyalty\Domain\Pos\SystemEvent\PosUpdatedSystemEvent;
 /**
  * Class PosCommandHandler.
  */
-class PosCommandHandler extends CommandHandler
+class PosCommandHandler implements CommandHandler
 {
     /**
      * @var PosRepository
@@ -56,5 +56,25 @@ class PosCommandHandler extends CommandHandler
                 new PosUpdatedSystemEvent($command->getPosId(), $pos->getName(), $pos->getLocation() ? $pos->getLocation()->getCity() : null),
             ]);
         }
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreatePos) {
+            return $this->handleCreatePos($command);
+        }
+        if ($command instanceof UpdatePos) {
+            return $this->handleUpdatePos($command);
+        }
+        if ($command instanceof ActivatePos) {
+            return $this->handleActivatePos($command);
+        }
+        if ($command instanceof DeactivatePos) {
+            return $this->handleDeactivatePos($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

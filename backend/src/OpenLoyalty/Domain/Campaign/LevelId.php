@@ -23,7 +23,7 @@ class LevelId implements Identifier
      *
      * @param string $levelId
      */
-    public function __construct($levelId)
+    public function __construct(string $levelId)
     {
         Assert::string($levelId);
         Assert::uuid($levelId);

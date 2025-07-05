@@ -5,8 +5,8 @@
  */
 namespace OpenLoyalty\Domain\Account\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Account\AccountId;
 use OpenLoyalty\Domain\Account\Model\PointsTransfer;
 use OpenLoyalty\Domain\Account\PointsTransferId;
@@ -16,7 +16,7 @@ use OpenLoyalty\Domain\Account\TransactionId;
 /**
  * Class PointsTransferDetails.
  */
-class PointsTransferDetails implements ReadModelInterface, SerializableInterface
+class PointsTransferDetails implements SerializableReadModel, Serializable
 {
     const TYPE_ADDING = 'adding';
     const TYPE_SPENDING = 'spending';

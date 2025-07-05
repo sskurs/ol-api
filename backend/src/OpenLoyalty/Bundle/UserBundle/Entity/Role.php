@@ -6,13 +6,12 @@
 namespace OpenLoyalty\Bundle\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="ol__roles")
  */
-class Role implements RoleInterface
+class Role
 {
     /**
      * @ORM\Id

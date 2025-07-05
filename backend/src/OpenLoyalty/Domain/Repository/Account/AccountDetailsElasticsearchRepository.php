@@ -8,16 +8,16 @@ use OpenLoyalty\Domain\Repository\OloyElasticsearchRepository;
 /**
  * Class AccountDetailsElasticsearchRepository.
  */
-class AccountDetailsElasticsearchRepository extends OloyElasticsearchRepository implements AccountDetailsRepository
+class AccountDetailsElasticsearchRepository extends OloyElasticsearchRepository
 {
     /**
      * @param string $id
      * @return AccountDetails|null
      */
-    public function find(string $id): ?AccountDetails
+    public function find($id): ?AccountDetails
     {
-        $result = $this->findBy(['id' => $id]);
-        return !empty($result) ? $result[0] : null;
+        $result = parent::find($id);
+        return $result instanceof AccountDetails ? $result : null;
     }
 
     /**
@@ -33,15 +33,27 @@ class AccountDetailsElasticsearchRepository extends OloyElasticsearchRepository 
     /**
      * @param AccountDetails $accountDetails
      */
-    public function save(AccountDetails $accountDetails): void
+    public function save($accountDetails)
     {
         parent::save($accountDetails);
     }
 
     /**
+     * @param mixed $readModel
+     */
+    public function saveGeneric($readModel)
+    {
+        if ($readModel instanceof AccountDetails) {
+            $this->save($readModel);
+        } else {
+            parent::save($readModel);
+        }
+    }
+
+    /**
      * @param string $id
      */
-    public function remove(string $id): void
+    public function remove($id)
     {
         parent::remove($id);
     }

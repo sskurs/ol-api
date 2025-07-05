@@ -64,11 +64,11 @@ angular.module(MODULE_NAME, [])
                         controllerAs: 'SellerLoginCtrl'
                     }
                 }
-            })
+            });
     })
     .run(($templateCache, $http) => {
         let catchErrorTemplate = () => {
-            throw `${MODULE_NAME} has missing template`
+            throw MODULE_NAME + ' has missing template';
         };
 
         $templateCache.put('./templates/password-request-extend-top.html', '');
@@ -80,7 +80,7 @@ angular.module(MODULE_NAME, [])
         $templateCache.put('./templates/seller-login-extend-top.html', '');
         $templateCache.put('./templates/seller-login-extend-bottom.html', '');
 
-        $http.get(`./build/${MODULE_NAME}/templates/seller-login.html`)
+        $http.get('./build/' + MODULE_NAME + '/templates/seller-login.html')
             .then(
                 response => {
                     $templateCache.put('./templates/seller-login.html', response.data);
@@ -88,7 +88,7 @@ angular.module(MODULE_NAME, [])
             )
             .catch(catchErrorTemplate);
 
-        $http.get(`./build/${MODULE_NAME}/templates/password-request.html`)
+        $http.get('./build/' + MODULE_NAME + '/templates/password-request.html')
             .then(
                 response => {
                     $templateCache.put('./templates/password-request.html', response.data);
@@ -96,7 +96,7 @@ angular.module(MODULE_NAME, [])
             )
             .catch(catchErrorTemplate);
 
-        $http.get(`./build/${MODULE_NAME}/templates/password-reset.html`)
+        $http.get('./build/' + MODULE_NAME + '/templates/password-reset.html')
             .then(
                 response => {
                     $templateCache.put('./templates/password-reset.html', response.data);
@@ -104,10 +104,10 @@ angular.module(MODULE_NAME, [])
             )
             .catch(catchErrorTemplate);
     })
-    .controller('SellerLoginController', SellerLoginController)
+    .controller('SellerLoginController', SellerLoginController);
 
 try {
     window.OpenLoyaltyConfig.modules.push(MODULE_NAME);
 } catch (err) {
-    throw `${MODULE_NAME} will not be registered`
+    throw MODULE_NAME + ' will not be registered';
 }

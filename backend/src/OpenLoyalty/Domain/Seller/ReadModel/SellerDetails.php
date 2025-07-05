@@ -5,15 +5,14 @@
  */
 namespace OpenLoyalty\Domain\Seller\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
 use OpenLoyalty\Domain\Seller\PosId;
 use OpenLoyalty\Domain\Seller\SellerId;
 
 /**
  * Class SellerDetails.
  */
-class SellerDetails implements ReadModelInterface, SerializableInterface
+class SellerDetails implements SerializableReadModel
 {
     /**
      * @var SellerId

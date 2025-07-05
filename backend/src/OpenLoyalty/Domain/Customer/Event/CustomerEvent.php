@@ -5,13 +5,13 @@
  */
 namespace OpenLoyalty\Domain\Customer\Event;
 
-use Broadway\Serializer\SerializableInterface;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Customer\CustomerId;
 
 /**
  * Class CustomerEvent.
  */
-abstract class CustomerEvent implements SerializableInterface
+abstract class CustomerEvent implements Serializable
 {
     private $customerId;
 

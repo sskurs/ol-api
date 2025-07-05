@@ -12,7 +12,7 @@ use OpenLoyalty\Bundle\UserBundle\Entity\Customer;
 use OpenLoyalty\Bundle\UserBundle\Entity\Seller;
 use OpenLoyalty\Bundle\UserBundle\Entity\User;
 use OpenLoyalty\Domain\Customer\CustomerId;
-use OpenLoyalty\Domain\Repository\Customer\CustomerDetailsElasticsearchRepository;
+use OpenLoyalty\Domain\Customer\ReadModel\CustomerDetailsRepository;
 use OpenLoyalty\Domain\Seller\SellerId;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -42,25 +42,25 @@ class UserManager
     protected $emailProvider;
 
     /**
-     * @var
+     * @var CustomerDetailsRepository
      */
     protected $customerDetailsRepository;
 
     /**
      * UserManager constructor.
      *
-     * @param UserPasswordEncoderInterface           $passwordEncoder
-     * @param EntityManager                          $em
-     * @param PasswordGenerator                      $passwordGenerator
-     * @param EmailProvider                          $emailProvider
-     * @param CustomerDetailsElasticsearchRepository $customerDetailsRepository
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param EntityManager                $em
+     * @param PasswordGenerator            $passwordGenerator
+     * @param EmailProvider                $emailProvider
+     * @param CustomerDetailsRepository    $customerDetailsRepository
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
         EntityManager $em,
         PasswordGenerator $passwordGenerator,
         EmailProvider $emailProvider,
-        CustomerDetailsElasticsearchRepository $customerDetailsRepository
+        CustomerDetailsRepository $customerDetailsRepository
     ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
@@ -74,7 +74,7 @@ class UserManager
         $this->updatePassword($user);
         $this->em->persist($user);
         if ($andFlush) {
-            $this->em->flush();
+            $this->em->flush();  
         }
     }
 

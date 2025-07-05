@@ -28,13 +28,13 @@ angular.module(MODULE_NAME, [])
     })
     .run(($templateCache, $http) => {
         let catchErrorTemplate = () => {
-            throw `${MODULE_NAME} has missing template`
+            throw MODULE_NAME + ' has missing template';
         };
 
         $templateCache.put('./templates/customer-login-extend-top.html', '');
         $templateCache.put('./templates/customer-login-extend-bottom.html', '');
 
-        $http.get(`./build/${MODULE_NAME}/templates/customer-login.html`)
+        $http.get('./build/' + MODULE_NAME + '/templates/customer-login.html')
             .then(
                 response => {
                     $templateCache.put('./templates/customer-login.html', response.data);
@@ -47,5 +47,5 @@ angular.module(MODULE_NAME, [])
 try {
     window.OpenLoyaltyConfig.modules.push(MODULE_NAME);
 } catch (err) {
-    throw `${MODULE_NAME} will not be registered`
+    throw MODULE_NAME + ' will not be registered';
 }

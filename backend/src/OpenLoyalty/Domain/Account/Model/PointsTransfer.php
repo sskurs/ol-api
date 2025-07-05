@@ -5,14 +5,14 @@
  */
 namespace OpenLoyalty\Domain\Account\Model;
 
-use Broadway\Serializer\SerializableInterface;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Account\PointsTransferId;
 use Assert\Assertion as Assert;
 
 /**
  * Class PointsTransfer.
  */
-abstract class PointsTransfer implements SerializableInterface
+abstract class PointsTransfer implements Serializable
 {
     const ISSUER_ADMIN = 'admin';
     const ISSUER_SELLER = 'seller';

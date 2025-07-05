@@ -1,7 +1,7 @@
 export default class UserController {
     constructor($scope, $state, $stateParams, AuthService, UserService, Flash, EditableMap, NgTableParams, ParamsMap, $q, LevelService, Validation, $filter, DataService, PosService, TransferService) {
         if (!AuthService.isGranted('ROLE_ADMIN')) {
-            $state.go('admin-login')
+            $state.go('admin-login');
         }
 
         this.$scope = $scope;

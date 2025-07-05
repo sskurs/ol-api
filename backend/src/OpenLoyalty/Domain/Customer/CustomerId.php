@@ -18,7 +18,7 @@ class CustomerId implements Identifier
     /**
      * @param string $customerId
      */
-    public function __construct($customerId)
+    public function __construct(string $customerId)
     {
         Assert::string($customerId);
         Assert::uuid($customerId);

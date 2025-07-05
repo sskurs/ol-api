@@ -5,12 +5,10 @@
  */
 namespace OpenLoyalty\Domain\Model;
 
-use Broadway\Serializer\SerializableInterface;
-
 /**
  * Class SKU.
  */
-class SKU implements SerializableInterface
+class SKU
 {
     /**
      * @var string

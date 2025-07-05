@@ -38,4 +38,14 @@ class CheckboxTypeExtension extends AbstractTypeExtension
     {
         return CheckboxType::class;
     }
+
+    /**
+     * Returns the names of the types being extended.
+     *
+     * @return array The names of the types being extended
+     */
+    public static function getExtendedTypes()
+    {
+        return [CheckboxType::class];
+    }
 }

@@ -5,13 +5,13 @@
  */
 namespace OpenLoyalty\Domain\Customer\Model;
 
-use Broadway\Serializer\SerializableInterface;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Customer\CampaignId;
 
 /**
  * Class CampaignPurchase.
  */
-class CampaignPurchase implements SerializableInterface
+class CampaignPurchase implements Serializable
 {
     /**
      * @var \DateTime

@@ -5,15 +5,15 @@
  */
 namespace OpenLoyalty\Domain\Segment\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Segment\CustomerId;
 use OpenLoyalty\Domain\Segment\SegmentId;
 
 /**
  * Class SegmentedCustomers.
  */
-class SegmentedCustomers implements ReadModelInterface, SerializableInterface
+class SegmentedCustomers implements SerializableReadModel, Serializable
 {
     /**
      * @var SegmentId

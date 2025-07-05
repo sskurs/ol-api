@@ -6,7 +6,7 @@
 namespace OpenLoyalty\Bundle\DemoBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use OpenLoyalty\Domain\Pos\Command\CreatePos;
 use OpenLoyalty\Domain\Pos\PosId;
 use Symfony\Bridge\Doctrine\Tests\Fixtures\ContainerAwareFixture;

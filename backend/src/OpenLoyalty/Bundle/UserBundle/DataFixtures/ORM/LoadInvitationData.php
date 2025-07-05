@@ -5,7 +5,7 @@ namespace OpenLoyalty\Bundle\UserBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use OpenLoyalty\Domain\Customer\Command\CreateInvitation;
 use OpenLoyalty\Domain\Customer\CustomerId;
 use OpenLoyalty\Domain\Customer\InvitationId;

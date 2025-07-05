@@ -23,7 +23,7 @@ class CriterionId implements Identifier
      *
      * @param string $criterionId
      */
-    public function __construct($criterionId)
+    public function __construct(string $criterionId)
     {
         Assert::string($criterionId);
         Assert::uuid($criterionId);

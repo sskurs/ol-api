@@ -1,9 +1,11 @@
 <?php
-
+/**
+ * Copyright © 2017 Divante, Inc. All rights reserved.
+ * See LICENSE for license details.
+ */
 namespace OpenLoyalty\Domain\Customer\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
 use OpenLoyalty\Domain\Customer\CustomerId;
 use OpenLoyalty\Domain\Customer\Invitation;
 use OpenLoyalty\Domain\Customer\InvitationId;
@@ -11,7 +13,7 @@ use OpenLoyalty\Domain\Customer\InvitationId;
 /**
  * Class InvitationDetails.
  */
-class InvitationDetails implements ReadModelInterface, SerializableInterface
+class InvitationDetails implements SerializableReadModel
 {
     /**
      * @var InvitationId
@@ -179,7 +181,24 @@ class InvitationDetails implements ReadModelInterface, SerializableInterface
         return $this->invitationId->__toString();
     }
 
+    public function referrerIdAsString()
+    {
+        return (string) $this->referrerId;
+    }
+
+    public function recipientIdAsString()
+    {
+        return (string) $this->recipientId;
+    }
+
+    public function madePurchase()
+    {
+        $this->status = Invitation::STATUS_MADE_PURCHASE;
+    }
+
     /**
+     * @param array $data
+     *
      * @return mixed The object instance
      */
     public static function deserialize(array $data)
@@ -192,12 +211,14 @@ class InvitationDetails implements ReadModelInterface, SerializableInterface
             $data['recipientEmail'],
             $data['token']
         );
-        $invitation->updateRecipientData(
-            $data['recipientId'] ? new CustomerId($data['recipientId']) : null,
-            $data['recipientName']
-        );
 
-        $invitation->status = $data['status'];
+        if (isset($data['recipientId'])) {
+            $invitation->updateRecipientData(new CustomerId($data['recipientId']), $data['recipientName'] ?? null);
+        }
+
+        if (isset($data['status'])) {
+            $invitation->status = $data['status'];
+        }
 
         return $invitation;
     }
@@ -212,26 +233,11 @@ class InvitationDetails implements ReadModelInterface, SerializableInterface
             'referrerId' => $this->referrerId->__toString(),
             'referrerEmail' => $this->referrerEmail,
             'referrerName' => $this->referrerName,
-            'recipientId' => $this->recipientId ? $this->recipientId->__toString() : null,
             'recipientEmail' => $this->recipientEmail,
+            'recipientId' => $this->recipientId ? $this->recipientId->__toString() : null,
             'recipientName' => $this->recipientName,
             'status' => $this->status,
             'token' => $this->token,
         ];
-    }
-
-    public function referrerIdAsString()
-    {
-        return (string) $this->referrerId;
-    }
-
-    public function recipientIdAsString()
-    {
-        return (string) $this->recipientId;
-    }
-
-    public function madePurchase()
-    {
-        $this->status = Invitation::STATUS_MADE_PURCHASE;
     }
 }

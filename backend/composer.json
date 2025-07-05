@@ -19,6 +19,7 @@
     "require": {
         "php": ">=7.4",
         "symfony/symfony": "^4.4",
+        "doctrine/dbal": "^2.13.9",
         "doctrine/orm": "^2.7",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-cache-bundle": "^1.4",

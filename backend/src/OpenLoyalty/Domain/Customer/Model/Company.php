@@ -5,13 +5,12 @@
  */
 namespace OpenLoyalty\Domain\Customer\Model;
 
-use Broadway\Serializer\SerializableInterface;
 use Assert\Assertion as Assert;
 
 /**
  * Class Company.
  */
-class Company implements SerializableInterface
+class Company
 {
     /**
      * @var string

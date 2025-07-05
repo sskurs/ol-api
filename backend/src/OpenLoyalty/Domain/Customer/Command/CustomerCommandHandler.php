@@ -21,7 +21,7 @@ use OpenLoyalty\Domain\Customer\Validator\CustomerUniqueValidator;
 /**
  * Class CustomerCommandHandler.
  */
-class CustomerCommandHandler extends CommandHandler
+class CustomerCommandHandler implements CommandHandler
 {
     /**
      * @var CustomerRepository
@@ -53,6 +53,50 @@ class CustomerCommandHandler extends CommandHandler
         $this->repository = $repository;
         $this->customerUniqueValidator = $customerUniqueValidator;
         $this->eventDispatcher = $eventDispatcher;
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof RegisterCustomer) {
+            return $this->handleRegisterCustomer($command);
+        }
+        if ($command instanceof UpdateCustomerAddress) {
+            return $this->handleUpdateCustomerAddress($command);
+        }
+        if ($command instanceof UpdateCustomerCompanyDetails) {
+            return $this->handleUpdateCustomerCompanyDetails($command);
+        }
+        if ($command instanceof UpdateCustomerLoyaltyCardNumber) {
+            return $this->handleUpdateCustomerLoyaltyCardNumber($command);
+        }
+        if ($command instanceof UpdateCustomerDetails) {
+            return $this->handleUpdateCustomerDetails($command);
+        }
+        if ($command instanceof MoveCustomerToLevel) {
+            return $this->handleMoveCustomerToLevel($command);
+        }
+        if ($command instanceof AssignPosToCustomer) {
+            return $this->handleAssignPosToCustomer($command);
+        }
+        if ($command instanceof BuyCampaign) {
+            return $this->handleBuyCampaign($command);
+        }
+        if ($command instanceof ChangeCampaignUsage) {
+            return $this->handleChangeCampaignUsage($command);
+        }
+        if ($command instanceof DeactivateCustomer) {
+            return $this->handleDeactivateCustomer($command);
+        }
+        if ($command instanceof ActivateCustomer) {
+            return $this->handleActivateCustomer($command);
+        }
+        if ($command instanceof NewsletterSubscription) {
+            return $this->handleNewsletterSubscription($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 
     public function handleRegisterCustomer(RegisterCustomer $command)

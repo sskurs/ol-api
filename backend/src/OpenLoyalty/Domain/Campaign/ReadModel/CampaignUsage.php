@@ -5,14 +5,14 @@
  */
 namespace OpenLoyalty\Domain\Campaign\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Campaign\CampaignId;
 
 /**
  * Class CampaignUsage.
  */
-class CampaignUsage implements ReadModelInterface, SerializableInterface
+class CampaignUsage implements SerializableReadModel, Serializable
 {
     /**
      * @var CampaignId

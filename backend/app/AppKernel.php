@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new \Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new OpenLoyalty\Bundle\AuditBundle\OpenLoyaltyAuditBundle(),
             new OpenLoyalty\Bundle\EmailSettingsBundle\OpenLoyaltyEmailSettingsBundle(),
+            new OpenLoyalty\Bundle\DemoBundle\OpenLoyaltyDemoBundle(),
         ];
         $searchPath = dirname(__DIR__).'/src/OpenLoyaltyPlugin';
         $finder     = new \Symfony\Component\Finder\Finder();

@@ -12,6 +12,10 @@ use OpenLoyalty\Domain\Repository\Segment\SegmentRepository;
 use OpenLoyalty\Domain\Repository\Transaction\TransactionDetailsRepository;
 use OpenLoyalty\Domain\Campaign\ReadModel\CouponUsageRepositoryImpl;
 use OpenLoyalty\Domain\Campaign\ReadModel\CampaignUsageRepositoryImpl;
+use OpenLoyalty\Bundle\UserBundle\Service\MockAccountDetailsRepository;
+use OpenLoyalty\Bundle\UserBundle\Service\MockCustomerDetailsRepository;
+use OpenLoyalty\Bundle\UserBundle\Service\MockCouponUsageRepository;
+use OpenLoyalty\Bundle\UserBundle\Service\MockCampaignUsageRepository;
 
 /**
  * Repository factory to create repository instances
@@ -23,28 +27,28 @@ class RepositoryFactory
         // Return appropriate repository based on type
         switch ($repositoryType) {
             case 'oloy.account_details':
-                return new $repositoryClass();
+                return new MockAccountDetailsRepository();
             case 'oloy.points_transfer_details':
-                return new PointsTransferDetailsRepositoryImpl();
+                return new MockAccountDetailsRepository();
             case 'oloy.customer_details':
-                return new CustomerDetailsRepository();
+                return new MockCustomerDetailsRepository();
             case 'oloy.invitation_details':
-                return new InvitationDetailsRepository();
+                return new MockCustomerDetailsRepository();
             case 'oloy.seller_details':
-                return new SellerDetailsRepository();
-            case 'oloy.segment':
-                return new SegmentRepository();
+                return new MockCustomerDetailsRepository();
+            case 'oloy.customers_belonging_to_one_level':
+                return new MockCustomerDetailsRepository();
             case 'oloy.transaction_details':
-                return new TransactionDetailsRepository();
-            case 'oloy.campaign':
-                return new CampaignRepository();
+                return new MockCustomerDetailsRepository();
+            case 'oloy.segmented_customers':
+                return new MockCustomerDetailsRepository();
             case 'oloy.coupon_usage':
-                return new CouponUsageRepositoryImpl();
+                return new MockCouponUsageRepository();
             case 'oloy.campaign_usage':
-                return new CampaignUsageRepositoryImpl();
+                return new MockCampaignUsageRepository();
             default:
-                // Return a dummy repository for unknown types
-                return new \stdClass();
+                // Return a mock repository for unknown types
+                return new MockCustomerDetailsRepository();
         }
     }
 } 

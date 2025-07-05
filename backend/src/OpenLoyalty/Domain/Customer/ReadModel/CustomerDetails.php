@@ -5,8 +5,7 @@
  */
 namespace OpenLoyalty\Domain\Customer\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
 use OpenLoyalty\Domain\Customer\CampaignId;
 use OpenLoyalty\Domain\Customer\Model\Address;
 use OpenLoyalty\Domain\Customer\Model\CampaignPurchase;
@@ -20,7 +19,7 @@ use OpenLoyalty\Domain\Customer\TransactionId;
 /**
  * Class CustomerDetails.
  */
-class CustomerDetails implements ReadModelInterface, SerializableInterface
+class CustomerDetails implements SerializableReadModel
 {
     /**
      * @var CustomerId

@@ -5,13 +5,12 @@
  */
 namespace OpenLoyalty\Domain\Pos\Model;
 
-use Broadway\Serializer\SerializableInterface;
 use Assert\Assertion as Assert;
 
 /**
  * Class Location.
  */
-class Location implements SerializableInterface
+class Location
 {
     /**
      * @var string

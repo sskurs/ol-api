@@ -5,14 +5,13 @@
  */
 namespace OpenLoyalty\Domain\Email\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
 use OpenLoyalty\Domain\Email\EmailId;
 
 /**
  * Class Email.
  */
-class Email implements ReadModelInterface, SerializableInterface
+class Email implements SerializableReadModel
 {
     /**
      * @var EmailId
@@ -143,34 +142,39 @@ class Email implements ReadModelInterface, SerializableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $data
+     *
+     * @return mixed The object instance
      */
     public static function deserialize(array $data)
     {
+        $updatedAt = new \DateTime();
+        $updatedAt->setTimestamp($data['updatedAt']);
+
         return new self(
-            $data['id'],
+            new EmailId($data['emailId']),
             $data['key'],
             $data['subject'],
             $data['content'],
-            $data['sender_name'],
-            $data['sender_email'],
-            $data['updated_at']
+            $data['senderName'],
+            $data['senderEmail'],
+            $updatedAt
         );
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function serialize()
     {
         return [
-            'id' => $this->getId(),
-            'key' => $this->getKey(),
-            'subject' => $this->getSubject(),
-            'content' => $this->getContent(),
-            'sender_name' => $this->getSenderName(),
-            'sender_email' => $this->getSenderEmail(),
-            'updated_at' => $this->getUpdatedAt(),
+            'emailId' => $this->emailId->__toString(),
+            'key' => $this->key,
+            'subject' => $this->subject,
+            'content' => $this->content,
+            'senderName' => $this->senderName,
+            'senderEmail' => $this->senderEmail,
+            'updatedAt' => $this->updatedAt->getTimestamp(),
         ];
     }
 }

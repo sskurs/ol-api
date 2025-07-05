@@ -36,19 +36,27 @@ class CreateProjectionIndexCommand extends ContainerAwareCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        foreach ($this->repos as $repo) {
-            $repo = $this->getContainer()->get($repo);
-            if ($input->getOption('drop-old')) {
-                if (method_exists($repo, 'deleteIndex')) {
-                    try {
-                        $repo->deleteIndex();
-                    } catch (Missing404Exception $e) {
+        foreach ($this->repos as $repoName) {
+            try {
+                $repo = $this->getContainer()->get($repoName);
+                if ($input->getOption('drop-old')) {
+                    if (method_exists($repo, 'deleteIndex')) {
+                        try {
+                            $repo->deleteIndex();
+                        } catch (Missing404Exception $e) {
+                            // Index doesn't exist, which is fine
+                        }
                     }
                 }
-            }
-            if (method_exists($repo, 'createIndex')) {
-                $repo->createIndex();
+                if (method_exists($repo, 'createIndex')) {
+                    $repo->createIndex();
+                }
+            } catch (\Exception $e) {
+                $output->writeln("<comment>Warning: Could not process repository '{$repoName}': {$e->getMessage()}</comment>");
+                // Continue with other repositories
             }
         }
+        
+        $output->writeln("<info>Projection index creation completed.</info>");
     }
 }

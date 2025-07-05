@@ -12,7 +12,7 @@ use OpenLoyalty\Domain\Campaign\CampaignRepository;
 /**
  * Class CampaignCommandHandler.
  */
-class CampaignCommandHandler extends CommandHandler
+class CampaignCommandHandler implements CommandHandler
 {
     /**
      * @var CampaignRepository
@@ -73,5 +73,28 @@ class CampaignCommandHandler extends CommandHandler
         $campaign->setCampaignPhoto(null);
 
         $this->campaignRepository->save($campaign);
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateCampaign) {
+            return $this->handleCreateCampaign($command);
+        }
+        if ($command instanceof UpdateCampaign) {
+            return $this->handleUpdateCampaign($command);
+        }
+        if ($command instanceof ChangeCampaignState) {
+            return $this->handleChangeCampaignState($command);
+        }
+        if ($command instanceof SetCampaignPhoto) {
+            return $this->handleSetCampaignPhoto($command);
+        }
+        if ($command instanceof RemoveCampaignPhoto) {
+            return $this->handleRemoveCampaignPhoto($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

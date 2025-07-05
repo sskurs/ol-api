@@ -7,9 +7,9 @@ export default class CustomerLoginController {
                         AuthService.setStoredRefreshToken(res.refresh_token);
                         AuthService.setStoredToken(res.token);
                         if (AuthService.isGranted('ROLE_PARTICIPANT')) {
-                            $state.go('customer.panel.transactions-list')
+                            $state.go('customer.panel.transactions-list');
                         } else {
-                            $state.go('customer-login')
+                            $state.go('customer-login');
                         }
                     },
                     function () {

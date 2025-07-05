@@ -16,7 +16,7 @@ use OpenLoyalty\Domain\Account\SystemEvent\AvailablePointsAmountChangedSystemEve
 /**
  * Class AccountCommandHandler.
  */
-class AccountCommandHandler extends CommandHandler
+class AccountCommandHandler implements CommandHandler
 {
     /**
      * @var AccountRepository
@@ -130,5 +130,28 @@ class AccountCommandHandler extends CommandHandler
                 ]
             );
         }
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateAccount) {
+            return $this->handleCreateAccount($command);
+        }
+        if ($command instanceof AddPoints) {
+            return $this->handleAddPoints($command);
+        }
+        if ($command instanceof SpendPoints) {
+            return $this->handleSpendPoints($command);
+        }
+        if ($command instanceof CancelPointsTransfer) {
+            return $this->handleCancelPointsTransfer($command);
+        }
+        if ($command instanceof ExpirePointsTransfer) {
+            return $this->handleExpirePointsTransfer($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

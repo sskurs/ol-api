@@ -19,7 +19,7 @@ use OpenLoyalty\Domain\Segment\SystemEvent\SegmentSystemEvents;
 /**
  * Class SegmentCommandHandler.
  */
-class SegmentCommandHandler extends CommandHandler
+class SegmentCommandHandler implements CommandHandler
 {
     /**
      * @var SegmentRepository
@@ -143,5 +143,25 @@ class SegmentCommandHandler extends CommandHandler
         /** @var Segment $segment */
         $segment = $this->segmentRepository->byId($command->getSegmentId());
         $this->segmentRepository->remove($segment);
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateSegment) {
+            return $this->handleCreateSegment($command);
+        }
+        if ($command instanceof UpdateSegment) {
+            return $this->handleUpdateSegment($command);
+        }
+        if ($command instanceof ActivateSegment) {
+            return $this->handleActivateSegment($command);
+        }
+        if ($command instanceof DeactivateSegment) {
+            return $this->handleDeactivateSegment($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

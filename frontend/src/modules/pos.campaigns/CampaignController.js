@@ -1,7 +1,7 @@
 export default class CampaignController {
     constructor($scope, $state, $stateParams, AuthService, CampaignService, Flash, EditableMap, NgTableParams, ParamsMap, $q, Validation, $filter) {
         if (!AuthService.isGranted('ROLE_SELLER')) {
-            $state.go('seller-login')
+            $state.go('seller-login');
         }
         this.$scope = $scope;
         this.$scope.newCampaign = {};
@@ -21,7 +21,7 @@ export default class CampaignController {
         this.loaderVisible = {
             campaigns: true,
             singleCampaign: true
-        }
+        };
     }
 
     getData() {

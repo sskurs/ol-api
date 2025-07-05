@@ -5,13 +5,12 @@
  */
 namespace OpenLoyalty\Domain\Seller\Event;
 
-use Broadway\Serializer\SerializableInterface;
 use OpenLoyalty\Domain\Seller\SellerId;
 
 /**
  * Class SellerEvent.
  */
-abstract class SellerEvent implements SerializableInterface
+abstract class SellerEvent
 {
     /**
      * @var SellerId

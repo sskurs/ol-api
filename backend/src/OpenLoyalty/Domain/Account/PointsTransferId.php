@@ -21,7 +21,7 @@ class PointsTransferId implements Identifier
     /**
      * @param string $pointsTransferId
      */
-    public function __construct($pointsTransferId)
+    public function __construct(string $pointsTransferId)
     {
         Assert::string($pointsTransferId);
         Assert::uuid($pointsTransferId);

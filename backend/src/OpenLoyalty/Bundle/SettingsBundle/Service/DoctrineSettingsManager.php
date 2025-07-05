@@ -6,7 +6,7 @@
 namespace OpenLoyalty\Bundle\SettingsBundle\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use OpenLoyalty\Bundle\SettingsBundle\Model\Settings;
 
 /**
@@ -15,16 +15,16 @@ use OpenLoyalty\Bundle\SettingsBundle\Model\Settings;
 class DoctrineSettingsManager implements SettingsManager
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
      * SettingsManager constructor.
      *
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

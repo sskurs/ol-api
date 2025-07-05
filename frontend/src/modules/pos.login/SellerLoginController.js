@@ -7,9 +7,9 @@ export default class SellerLoginController {
                         AuthService.setStoredRefreshToken(res.refresh_token);
                         AuthService.setStoredToken(res.token);
                         if (AuthService.isGranted('ROLE_SELLER')) {
-                            $state.go('seller.panel.dashboard')
+                            $state.go('seller.panel.dashboard');
                         } else {
-                            $state.go('seller-login')
+                            $state.go('seller-login');
                         }
                     },
                     () => {

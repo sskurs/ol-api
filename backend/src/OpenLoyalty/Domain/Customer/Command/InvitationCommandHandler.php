@@ -16,7 +16,7 @@ use OpenLoyalty\Domain\Customer\SystemEvent\InvitationSystemEvents;
 /**
  * Class InvitationCommandHandler.
  */
-class InvitationCommandHandler extends CommandHandler
+class InvitationCommandHandler implements CommandHandler
 {
     /**
      * @var InvitationRepository
@@ -48,6 +48,23 @@ class InvitationCommandHandler extends CommandHandler
         $this->invitationRepository = $invitationRepository;
         $this->tokenGenerator = $tokenGenerator;
         $this->eventDispatcher = $eventDispatcher;
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateInvitation) {
+            return $this->handleCreateInvitation($command);
+        }
+        if ($command instanceof AttachCustomerToInvitation) {
+            return $this->handleAttachCustomerToInvitation($command);
+        }
+        if ($command instanceof InvitedCustomerMadePurchase) {
+            return $this->handleInvitedCustomerMadePurchase($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 
     public function handleCreateInvitation(CreateInvitation $command)

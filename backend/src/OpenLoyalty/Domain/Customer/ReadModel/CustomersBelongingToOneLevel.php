@@ -5,14 +5,14 @@
  */
 namespace OpenLoyalty\Domain\Customer\ReadModel;
 
-use Broadway\ReadModel\ReadModelInterface;
-use Broadway\Serializer\SerializableInterface;
+use Broadway\ReadModel\SerializableReadModel;
+use Broadway\Serializer\Serializable;
 use OpenLoyalty\Domain\Customer\LevelId;
 
 /**
  * Class CustomersBelongingToOneLevel.
  */
-class CustomersBelongingToOneLevel implements ReadModelInterface, SerializableInterface
+class CustomersBelongingToOneLevel implements SerializableReadModel, Serializable
 {
     /**
      * @var LevelId

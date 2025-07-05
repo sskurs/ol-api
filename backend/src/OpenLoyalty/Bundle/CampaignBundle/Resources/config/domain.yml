@@ -17,6 +17,8 @@ services:
       - 'oloy.coupon_usage'
       - 'OpenLoyalty\Domain\Campaign\ReadModel\CouponUsage'
       - 'OpenLoyalty\Domain\Repository\Campaign\CouponUsageElasticsearchRepository'
+
+
   oloy.campaign.read_model.projector.coupon_usage:
     class: OpenLoyalty\Infrastructure\Campaign\ReadModel\CouponUsageProjector
     arguments:

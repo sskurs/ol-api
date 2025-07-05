@@ -15,7 +15,7 @@ use OpenLoyalty\Domain\Email\SystemEvent\EmailSystemEvents;
 /**
  * Class EmailCommandHandler.
  */
-class EmailCommandHandler extends CommandHandler
+class EmailCommandHandler implements CommandHandler
 {
     /**
      * Email settings repository.
@@ -114,5 +114,19 @@ class EmailCommandHandler extends CommandHandler
     protected function getData($data, $key, $default = null)
     {
         return array_key_exists($key, $data) ? $data[$key] : $default;
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof CreateEmail) {
+            return $this->handleCreateEmail($command);
+        }
+        if ($command instanceof UpdateEmail) {
+            return $this->handleUpdateEmail($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

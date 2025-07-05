@@ -5,14 +5,13 @@
  */
 namespace OpenLoyalty\Domain\Transaction\Model;
 
-use Broadway\Serializer\SerializableInterface;
 use OpenLoyalty\Domain\Model\Label;
 use OpenLoyalty\Domain\Model\SKU;
 
 /**
  * Class Item.
  */
-class Item implements SerializableInterface
+class Item
 {
     /**
      * @var SKU

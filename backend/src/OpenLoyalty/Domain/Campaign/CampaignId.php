@@ -23,7 +23,7 @@ class CampaignId implements Identifier
      *
      * @param string $campaignId
      */
-    public function __construct($campaignId)
+    public function __construct(string $campaignId)
     {
         Assert::string($campaignId);
         Assert::uuid($campaignId);

@@ -12,7 +12,7 @@ use OpenLoyalty\Domain\Transaction\TransactionRepository;
 /**
  * Class TransactionCommandHandler.
  */
-class TransactionCommandHandler extends CommandHandler
+class TransactionCommandHandler implements CommandHandler
 {
     /**
      * @var TransactionRepository
@@ -52,5 +52,22 @@ class TransactionCommandHandler extends CommandHandler
         $transaction = $this->repository->load($command->getTransactionId()->__toString());
         $transaction->assignCustomerToTransaction($command->getCustomerId());
         $this->repository->save($transaction);
+    }
+
+    /**
+     * Dispatches the command to the appropriate handler.
+     */
+    public function handle($command)
+    {
+        if ($command instanceof RegisterTransaction) {
+            return $this->handleRegisterTransaction($command);
+        }
+        if ($command instanceof UpdateTransactionLabels) {
+            return $this->handleUpdateTransactionLabels($command);
+        }
+        if ($command instanceof ReturnTransaction) {
+            return $this->handleReturnTransaction($command);
+        }
+        throw new \InvalidArgumentException('Unknown command type: ' . get_class($command));
     }
 }

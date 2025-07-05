@@ -8,7 +8,7 @@ namespace OpenLoyalty\Bundle\DemoBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use OpenLoyaltyPlugin\SalesManagoBundle\Entity\Config;
 
 class LoadSalesManagoConfigdata extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface

@@ -18,7 +18,7 @@ class SellerId implements Identifier
     /**
      * @param string $sellerId
      */
-    public function __construct($sellerId)
+    public function __construct(string $sellerId)
     {
         Assert::string($sellerId);
         Assert::uuid($sellerId);

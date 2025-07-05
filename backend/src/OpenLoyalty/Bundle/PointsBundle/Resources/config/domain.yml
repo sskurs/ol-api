@@ -38,6 +38,7 @@ services:
       - 'oloy.account_details'
       - 'OpenLoyalty\Domain\Account\ReadModel\AccountDetails'
       - 'OpenLoyalty\Domain\Repository\Account\AccountDetailsElasticsearchRepository'
+    public: true
   oloy.points.account.read_model.projector.account_details:
     class: 'OpenLoyalty\Domain\Account\ReadModel\AccountDetailsProjector'
     tags:

@@ -17,7 +17,6 @@ use OpenLoyalty\Domain\Customer\CustomerId;
 use OpenLoyalty\Domain\Customer\SystemEvent\CustomerLoggedInSystemEvent;
 use OpenLoyalty\Domain\Customer\SystemEvent\CustomerSystemEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Class AuthenticationListener.
@@ -52,8 +51,8 @@ class AuthenticationListener
 
         $payload = $event->getData();
         $roles = $user->getRoles();
-        $roleNames = array_map(function (RoleInterface $role) {
-            return $role->getRole();
+        $roleNames = array_map(function ($role) {
+            return is_object($role) && method_exists($role, 'getRole') ? $role->getRole() : (string)$role;
         }, $roles);
         $payload['roles'] = $roleNames;
         if ($user instanceof User) {

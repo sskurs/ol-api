@@ -5,12 +5,10 @@
  */
 namespace OpenLoyalty\Domain\Customer\Model;
 
-use Broadway\Serializer\SerializableInterface;
-
 /**
  * Class Address.
  */
-class Address implements SerializableInterface
+class Address
 {
     /**
      * @var string

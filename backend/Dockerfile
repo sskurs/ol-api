@@ -34,6 +34,7 @@ RUN chmod +x /rancher_prod_entrypoint.sh
 ADD docker/rancher/test_entrypoint.sh /rancher_test_entrypoint.sh
 RUN chmod +x /rancher_test_entrypoint.sh
 WORKDIR /var/www/ol/backend
+#RUN ln -s /var/www/ol/backend/web /var/www/ol/backend/public
 
 # Create directories if they don't exist and set permissions
 RUN mkdir -p /var/www/ol/backend/var && \
@@ -45,6 +46,7 @@ RUN mkdir -p /var/www/ol/backend/var && \
     chown -R www-data:www-data /var/www/ol/backend/app/Resources/frontend_translations && \
     chmod -R 777 /var/www/ol/backend/app/Resources/frontend_translations
 
+RUN cp -r /var/www/ol/backend/web /var/www/ol/backend/public
 RUN cp /var/www/ol/backend/app/config/parameters.yml.dist /var/www/ol/backend/app/config/parameters.yml
 RUN sed -i 's/\r$//' bin/console
 
